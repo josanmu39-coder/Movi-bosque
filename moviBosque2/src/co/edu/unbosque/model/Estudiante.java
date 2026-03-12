@@ -10,7 +10,7 @@ public class Estudiante extends Persona {
 		super(nombre, tipoDocumento, numeroDocumento, facultad, edad, numeroTelefonico, correoInstitucional);
 	}
 	@Override
-	public String pagarViaje(String facultad, String semestre) {
+	public String pagarViaje(String facultad,String semestre,int anosDeServicioUniversidad) {
 		long montoAPagar=0;
 		if (facultad.toLowerCase().contains("ingenieria")) {
 			montoAPagar=1000;
@@ -70,8 +70,4 @@ public class Estudiante extends Persona {
 		return "El monto a pagar es: "+montoAPagar;
 		
 	}
-	public String pagarViaje(String Facultad) {
-		return"No aplica porque los estudiantes también tienen semestre";
 	}
-
-}

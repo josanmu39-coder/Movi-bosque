@@ -2,6 +2,6 @@ package co.edu.unbosque.model;
 
 public interface CapacidadPersona {
 
-	public String pagarViaje(String facultad);
-    public String pagarViaje(String facultad,String semestre); 
+    public String pagarViaje(String facultad,String semestre,int anosDeServicioUniversidad); 
+    
 }

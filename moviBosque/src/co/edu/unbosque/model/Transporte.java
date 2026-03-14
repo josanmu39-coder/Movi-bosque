@@ -1,12 +1,12 @@
 package co.edu.unbosque.model;
 
-public class Transporte {
+public abstract class Transporte {
 	private String ruta;
 	private int capacidadActual;
 	private int capacidadMaxima;
 	private String horaLlegada;
 	private String horaSalida;
-	private short numeroParadas;
+	private short numeroParada;
 	private String parada;
 	
 
@@ -17,6 +17,7 @@ public class Transporte {
 	*/
 	
 	//private String diasHabilesReserva;
+	
 	
 	public Transporte( ) {
 		
@@ -29,9 +30,11 @@ public class Transporte {
 		this.capacidadMaxima = capacidadMaxima;
 		this.horaLlegada = horaLlegada;
 		this.horaSalida = horaSalida;
-		this.numeroParadas = numeroParadas;
+		this.numeroParada = numeroParada;
 		this.parada = parada;
 	}
+	
+	
 
 	public String getRuta() {
 		return ruta;
@@ -73,12 +76,12 @@ public class Transporte {
 		this.horaSalida = horaSalida;
 	}
 
-	public short getNumeroParadas() {
-		return numeroParadas;
+	public short getNumeroParads() {
+		return numeroParada;
 	}
 
-	public void setNumeroParadas(short numeroParadas) {
-		this.numeroParadas = numeroParadas;
+	public void setNumeroParada(short numeroParada) {
+		this.numeroParada = numeroParada;
 	}
 
 	public String getParada() {

@@ -1,9 +1,7 @@
 package co.edu.unbosque.controller;
 
 import co.edu.unbosque.model.persistence.*;
-
 import co.edu.unbosque.model.*;
-import co.edu.unbosque.view.PanelFondo;
 import co.edu.unbosque.view.Ventana;
 
 public class Controller {
@@ -14,6 +12,7 @@ public class Controller {
 	private BusDAO BDAO;
 	private DocenteDAO DDAO;
 	private TrenDAO TDAO;
+	private ReservaDAO RDAO;
 	private Persona usuarioActual;
 
 	public Controller() {
@@ -27,11 +26,13 @@ public class Controller {
 		ventana.setVisible(true);
 		BDAO = new BusDAO();
 		TDAO = new TrenDAO();
+		RDAO = new ReservaDAO();
 	}
 
 	public void agregarAdministrativo(String nombre, String tipoDoc, String numDoc, String facultad, short edad,
 			long telefono, String correo, int anioExperiencia) {
-		Administrativo a = new Administrativo(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo, anioExperiencia);
+		Administrativo a = new Administrativo(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo,
+				anioExperiencia);
 		ADAO.crear(a);
 	}
 
@@ -49,31 +50,31 @@ public class Controller {
 		return usuarioActual;
 	}
 
-	public void reservarBus(String horario) {
-		Bus bus = new Bus("Ruta Universidad", 0, 40, "18:00", horario, (short) 3, "Campus");
-		BDAO.crear(bus);
-		if (usuarioActual != null) {
-			usuarioActual.agregarReserva("Bus a las " + horario);
-		}
-	}
-
-	public Estudiante agregarEstudiante(String nombre, String tipoDoc, String numDoc, String facultad, short edad,
-			long telefono, String correo, String semestre) {
-		Estudiante e = new Estudiante(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo,semestre);
-		EDAO.crear(e);
-		return e;
-	}
-
-	public void agregarDocente() {
-
-	}
-
 	public void reservarTren(String horario) {
 		Tren tren = new Tren("Ruta Universidad", 0, 100, "18:00", horario, (short) 5, "Campus");
 		TDAO.crear(tren);
 		if (usuarioActual != null) {
 			usuarioActual.agregarReserva("Tren a las " + horario);
+			Reserva r = new Reserva("R" + (RDAO.getListaReservas().size() + 1), usuarioActual, tren, horario, true);
+			RDAO.crear(r);
 		}
+	}
+
+	public void reservarBus(String horario) {
+		Bus bus = new Bus("Ruta Universidad", 0, 40, "18:00", horario, (short) 3, "Campus");
+		BDAO.crear(bus);
+		if (usuarioActual != null) {
+			usuarioActual.agregarReserva("Bus a las " + horario);
+			Reserva r = new Reserva("R" + (RDAO.getListaReservas().size() + 1), usuarioActual, bus, horario, true);
+			RDAO.crear(r);
+		}
+	}
+
+	public Estudiante agregarEstudiante(String nombre, String tipoDoc, String numDoc, String facultad, short edad,
+			long telefono, String correo, String semestre) {
+		Estudiante e = new Estudiante(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo, semestre);
+		EDAO.crear(e);
+		return e;
 	}
 
 	public String mostrarReservasBus() {
@@ -82,5 +83,17 @@ public class Controller {
 
 	public String mostrarReservasTren() {
 		return TDAO.mostrar();
+	}
+
+	public String mostrarReservasEstudiantes() {
+		return RDAO.mostrarReservasPorTipo("estudiante");
+	}
+
+	public String mostrarReservasDocentes() {
+		return RDAO.mostrarReservasPorTipo("docente");
+	}
+
+	public String mostrarReservasAdministrativos() {
+		return RDAO.mostrarReservasPorTipo("administrador");
 	}
 }

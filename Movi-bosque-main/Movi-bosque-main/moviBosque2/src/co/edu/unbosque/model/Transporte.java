@@ -9,22 +9,12 @@ public abstract class Transporte {
 	private short numeroParada;
 	private String parada;
 	
-
-	/*
-	private long numeroPutas;
-	private final long numeroDeTrans=100;
-	private boolean vaAHaberPartido;
-	*/
-	
-	//private String diasHabilesReserva;
-	
-	
 	public Transporte( ) {
 		
 	}
 
 	public Transporte(String ruta, int capacidadActual, int capacidadMaxima, String horaLlegada, String horaSalida,
-			short numeroParadas, String parada) {
+			short numeroParada, String parada) {
 		this.ruta = ruta;
 		this.capacidadActual = capacidadActual;
 		this.capacidadMaxima = capacidadMaxima;
@@ -33,8 +23,6 @@ public abstract class Transporte {
 		this.numeroParada = numeroParada;
 		this.parada = parada;
 	}
-	
-	
 
 	public String getRuta() {
 		return ruta;
@@ -76,7 +64,7 @@ public abstract class Transporte {
 		this.horaSalida = horaSalida;
 	}
 
-	public short getNumeroParads() {
+	public short getNumeroParada() {
 		return numeroParada;
 	}
 
@@ -91,6 +79,5 @@ public abstract class Transporte {
 	public void setParada(String parada) {
 		this.parada = parada;
 	}
-	
 	
 }

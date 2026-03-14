@@ -38,7 +38,8 @@ public class Docente extends Persona {
 				+ mostrarReservas() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + "]";
 	}
-	
-	
-
+	@Override
+	public String getTipo() {
+		return "docente";
+	}
 }

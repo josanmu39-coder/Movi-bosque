@@ -12,8 +12,9 @@ public abstract class Persona implements CapacidadPersona{
 	private String correoInstitucional;
 	private ArrayList<String> reservas = new ArrayList<>();
 	
+	public abstract String getTipo();
+	
 	public Persona() {
-		
 	}
 
 	public Persona(String nombre, String tipoDocumento, String numeroDocumento, String facultad, short edad,

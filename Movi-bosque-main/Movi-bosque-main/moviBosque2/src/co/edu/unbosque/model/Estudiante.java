@@ -90,4 +90,8 @@ public class Estudiante extends Persona {
 		return "El monto a pagar es: "+montoAPagar;
 		
 	}
+	@Override
+	public String getTipo() {
+		return "estudiante";
 	}
+}

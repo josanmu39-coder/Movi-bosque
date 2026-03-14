@@ -1,15 +1,7 @@
 package co.edu.unbosque.model;
 
 public class Administrativo extends Persona{
-	
 	private int aniosDeExperiencia;
-	
-	public int getAniosDeExperiencia() {
-		return aniosDeExperiencia;
-	}
-	public void setAniosDeExperiencia(int aniosDeExperiencia) {
-		this.aniosDeExperiencia = aniosDeExperiencia;
-	}
 	
 	public Administrativo() {
 		
@@ -42,11 +34,19 @@ public class Administrativo extends Persona{
 		}
 		return "El monto a pagar es: "+(montoAPagar-500*anosDeServicioUniversidad);
 	}
+	
+	public int getAniosDeExperiencia() {
+		return aniosDeExperiencia;
+	}
+	public void setAniosDeExperiencia(int aniosDeExperiencia) {
+		this.aniosDeExperiencia = aniosDeExperiencia;
+	}
 	@Override
 	public String toString() {
 		return "Administrativo [aniosDeExperiencia=" + aniosDeExperiencia + "]";
 	}
-	
-	
-
+	@Override
+	public String getTipo() {
+		return "administrador";
+	}
 }

@@ -3,7 +3,6 @@ package co.edu.unbosque.view;
 import javax.swing.*;
 import java.awt.*;
 import co.edu.unbosque.controller.Controller;
-import co.edu.unbosque.view.PanelFondo;
 import co.edu.unbosque.model.*;
 
 public class Ventana extends JFrame {
@@ -25,12 +24,13 @@ public class Ventana extends JFrame {
 		ventanaGrande = new JPanel(cambioVentanas);
 		ventanaGrande.add(pantallaDeInicio(), "menu");
 		ventanaGrande.add(pantallaDelProfesor(), "profesor");
-		ventanaGrande.add(pantallaDelAdministrador(), "Administrador");
-		ventanaGrande.add(pantallaDelEstudiante(), "Estudiante");
+		ventanaGrande.add(pantallaDelAdministrador(), "administrador");
+		ventanaGrande.add(pantallaDelEstudiante(), "estudiante");
 		ventanaGrande.add(pantallaDeReservas(), "reservas");
 		ventanaGrande.add(pantallaDeReservasTren(), "reservasTren");
 		ventanaGrande.add(pantallaDeReservasBus(), "reservasBus");
 		ventanaGrande.add(pantallaMirarReservas(), "MirarReserva");
+		ventanaGrande.add(pantallaDeReservasAdmin(), "ReservasAdmin");
 		add(ventanaGrande);
 	}
 
@@ -73,7 +73,6 @@ public class Ventana extends JFrame {
 	}
 
 	private JPanel pantallaRegistro() {
-
 		PanelFondo fondo = new PanelFondo();
 		fondo.setLayout(new GridBagLayout());
 		JPanel panel = new JPanel();
@@ -127,7 +126,7 @@ public class Ventana extends JFrame {
 						Long.parseLong(telefono.getText()), correo.getText(),semestre.getText());
 				controller.iniciarSesion(est);
 				JOptionPane.showMessageDialog(null, "Estudiante registrado");
-				cambioVentanas.show(ventanaGrande, "Estudiante");
+				cambioVentanas.show(ventanaGrande, "estudiante");
 			} else if (rolSeleccionado.equals("profesor")) {
 				Docente prof = new Docente(nombre.getText(), tipoDocumento.getText(), documento.getText(),
 						facultad.getText(), Short.parseShort(edad.getText()), Long.parseLong(telefono.getText()),
@@ -141,7 +140,7 @@ public class Ventana extends JFrame {
 						Long.parseLong(telefono.getText()), correo.getText(), Integer.parseInt(anioExperiencia.getText()));
 				controller.iniciarSesion(admin);
 				JOptionPane.showMessageDialog(null, "Administrador registrado");
-				cambioVentanas.show(ventanaGrande, "Administrador");
+				cambioVentanas.show(ventanaGrande, "administrador");
 			}
 		});
 		fondo.add(panel);
@@ -153,7 +152,11 @@ public class Ventana extends JFrame {
 		JButton mirarReserva = new JButton("Mirar reservas");
 		mirarReserva.addActionListener(e -> {
 			String reservas = controller.getUsuarioActual().mostrarReservas();
-			JOptionPane.showMessageDialog(null, reservas);
+			if (reservas == null || reservas.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "No tienes reservas registradas");
+		    } else {
+		        JOptionPane.showMessageDialog(null, reservas);
+		    }
 		});
 		panel.add(mirarReserva);
 		return panel;
@@ -166,20 +169,33 @@ public class Ventana extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setLayout(new BorderLayout());
+		
 		JLabel titulo = new JLabel("Panel Profesor", JLabel.CENTER);
 		JButton volver = new JButton("Volver");
 		JButton mirarReserva = new JButton("Mirar sus reservas");
 		JButton hacerReserva = new JButton("hacer reserva");
+		
+		JButton verReservasEstudiantes = new JButton(" Ver reservas de estudiantes");
+		verReservasEstudiantes.addActionListener(e -> {
+	        String reservas = controller.mostrarReservasEstudiantes();
+	        JOptionPane.showMessageDialog(null, reservas);
+	    });
+		
 		mirarReserva.addActionListener(e -> {
 			String reservas = controller.getUsuarioActual().mostrarReservas();
 			JOptionPane.showMessageDialog(null, reservas);
 		});
+		hacerReserva.addActionListener(e -> cambioVentanas.show(ventanaGrande, "reservas"));
+
 		volver.addActionListener(e -> cambioVentanas.show(ventanaGrande, "menu"));
+		
 		JPanel reservaBotones = new JPanel();
-		panel.add(titulo, BorderLayout.CENTER);
-		panel.add(volver, BorderLayout.SOUTH);
 		reservaBotones.add(mirarReserva);
 		reservaBotones.add(hacerReserva);
+		reservaBotones.add(verReservasEstudiantes);
+		
+		panel.add(titulo, BorderLayout.CENTER);
+		panel.add(volver, BorderLayout.SOUTH);
 		panel.add(reservaBotones, BorderLayout.NORTH);
 		fondo.add(panel);
 		return fondo;
@@ -199,6 +215,7 @@ public class Ventana extends JFrame {
 			String reservas = controller.getUsuarioActual().mostrarReservas();
 			JOptionPane.showMessageDialog(null, reservas);
 		});
+		hacerReserva.addActionListener(e -> cambioVentanas.show(ventanaGrande, "ReservasAdmin"));
 		volver.addActionListener(e -> cambioVentanas.show(ventanaGrande, "menu"));
 		JPanel reservaBotones = new JPanel();
 		reservaBotones.setOpaque(false);
@@ -278,6 +295,32 @@ public class Ventana extends JFrame {
 		fondo.add(panel);
 		return fondo;
 	}
+	
+	private JPanel pantallaDeReservasAdmin() {
+		PanelFondo fondo = new PanelFondo();
+		fondo.setLayout(new GridBagLayout());
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		JLabel titulo = new JLabel("Reservas UnBosque", JLabel.CENTER);
+
+		ImageIcon tren = new ImageIcon(getClass().getResource("entradaTren.jpeg"));
+		Image imagenTren = tren.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		tren = new ImageIcon(imagenTren);
+		JLabel imagenTrenL = new JLabel(tren);
+		JButton reservarTren = new JButton("Reservar Tren");
+		JButton volver = new JButton("Volver al menú");
+
+		reservarTren.addActionListener(e -> cambioVentanas.show(ventanaGrande, "reservasTren"));
+		volver.addActionListener(e -> cambioVentanas.show(ventanaGrande, rolSeleccionado));
+		panel.add(titulo);
+		panel.add(Box.createVerticalStrut(20));
+		panel.add(imagenTrenL);
+		panel.add(reservarTren);
+		panel.add(volver);
+		fondo.add(panel);
+		return fondo;
+	}
 
 	private JPanel pantallaDeReservasTren() {
 
@@ -311,7 +354,7 @@ public class Ventana extends JFrame {
 			}
 		});
 
-		volver.addActionListener(e -> cambioVentanas.show(ventanaGrande, "reservas"));
+		volver.addActionListener(e -> cambioVentanas.show(ventanaGrande, rolSeleccionado));
 		horarios.add(h1);
 		horarios.add(h2);
 		horarios.add(h3);
@@ -357,7 +400,7 @@ public class Ventana extends JFrame {
 			}
 		});
 
-		volver.addActionListener(e -> cambioVentanas.show(ventanaGrande, "reservas"));
+		volver.addActionListener(e -> cambioVentanas.show(ventanaGrande, rolSeleccionado));
 		horarios.add(h1);
 		horarios.add(h2);
 		horarios.add(h3);

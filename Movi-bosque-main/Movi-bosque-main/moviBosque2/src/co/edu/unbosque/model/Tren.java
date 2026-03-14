@@ -1,41 +1,53 @@
 package co.edu.unbosque.model;
 
 public class Tren extends Transporte{
-	private int numeroVagones;
-	private int numeroVagonesVIP;
-	private boolean idaOVuelta;
+	private int numeroVagon;
+	private int numeroVagonVip;
+	private boolean idaYVuelta;
+	
+	
 	public Tren() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+
 	}
 	public Tren(String ruta, int capacidadActual, int capacidadMaxima, String horaLlegada, String horaSalida,
 			short numeroParadas, String parada) {
 		super(ruta, capacidadActual, capacidadMaxima, horaLlegada, horaSalida, numeroParadas, parada);
 		// TODO Auto-generated constructor stub
 	}
-	public Tren(int numeroVagones, int numeroVagonesVIP, boolean idaOVuelta) {
+	
+	public Tren(int numeroVagon, int numeroVagonVip, boolean idaYVuelta) {
 		super();
-		this.numeroVagones = numeroVagones;
-		this.numeroVagonesVIP = numeroVagonesVIP;
-		this.idaOVuelta = idaOVuelta;
+		this.numeroVagon = numeroVagon;
+		this.numeroVagonVip = numeroVagonVip;
+		this.idaYVuelta = idaYVuelta;
 	}
-	public int getNumeroVagones() {
-		return numeroVagones;
+	
+	public int getNumeroVagon() {
+		return numeroVagon;
 	}
-	public void setNumeroVagones(int numeroVagones) {
-		this.numeroVagones = numeroVagones;
+	public void setNumeroVagon(int numeroVagon) {
+		this.numeroVagon = numeroVagon;
 	}
-	public int getNumeroVagonesVIP() {
-		return numeroVagonesVIP;
+	public int getNumeroVagonVip() {
+		return numeroVagonVip;
 	}
-	public void setNumeroVagonesVIP(int numeroVagonesVIP) {
-		this.numeroVagonesVIP = numeroVagonesVIP;
+	public void setNumeroVagonVip(int numeroVagonVip) {
+		this.numeroVagonVip = numeroVagonVip;
 	}
-	public boolean isIdaOVuelta() {
-		return idaOVuelta;
+	public boolean isIdaYVuelta() {
+		return idaYVuelta;
 	}
-	public void setIdaOVuelta(boolean idaOVuelta) {
-		this.idaOVuelta = idaOVuelta;
+	public void setIdaYVuelta(boolean idaYVuelta) {
+		this.idaYVuelta = idaYVuelta;
 	}
+	@Override
+	public String toString() {
+		return "Tren [numeroVagon=" + numeroVagon + ", numeroVagonVip=" + numeroVagonVip + ", idaYVuelta=" + idaYVuelta
+				+ "]";
+	}
+	
+	
+	
 	
 }

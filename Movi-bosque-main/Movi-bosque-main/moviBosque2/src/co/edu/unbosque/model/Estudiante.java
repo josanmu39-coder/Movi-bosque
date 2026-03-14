@@ -1,13 +1,33 @@
 package co.edu.unbosque.model;
 
 public class Estudiante extends Persona {
+	
+	private String semestre;
 
 	public Estudiante() {
-		super();
+		
 	}
 	public Estudiante(String nombre, String tipoDocumento, String numeroDocumento, String facultad, short edad,
 			long numeroTelefonico, String correoInstitucional) {
 		super(nombre, tipoDocumento, numeroDocumento, facultad, edad, numeroTelefonico, correoInstitucional);
+	}
+
+	public Estudiante(String nombre, String tipoDocumento, String numeroDocumento, String facultad, short edad,
+			long numeroTelefonico, String correoInstitucional, String semestre) {
+		super(nombre, tipoDocumento, numeroDocumento, facultad, edad, numeroTelefonico, correoInstitucional);
+		this.semestre = semestre;
+	}
+	public String getSemestre() {
+		return semestre;
+	}
+	public void setSemestre(String semestre) {
+		this.semestre = semestre;
+	}
+	
+	
+	public Estudiante(String semestre) {
+		super();
+		this.semestre = semestre;
 	}
 	@Override
 	public String pagarViaje(String facultad,String semestre,int anosDeServicioUniversidad) {

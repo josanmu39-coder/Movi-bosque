@@ -29,5 +29,16 @@ public class Docente extends Persona {
 	public String pagarViaje(String facultad, String Semestre) {
 		return "no aplica porque los docentes no tienen semestres";
 	}
+	@Override
+	public String toString() {
+		return "Docente [getNombre()=" + getNombre() + ", getTipoDocumento()=" + getTipoDocumento()
+				+ ", getNumeroDocumento()=" + getNumeroDocumento() + ", getEdad()=" + getEdad()
+				+ ", getNumeroTelefonico()=" + getNumeroTelefonico() + ", getCorreoInstitucional()="
+				+ getCorreoInstitucional() + ", getFacultad()=" + getFacultad() + ", mostrarReservas()="
+				+ mostrarReservas() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + "]";
+	}
+	
+	
 
 }

@@ -1,5 +1,7 @@
 package co.edu.unbosque.controller;
+
 import co.edu.unbosque.model.persistence.*;
+
 import co.edu.unbosque.model.*;
 import co.edu.unbosque.view.PanelFondo;
 import co.edu.unbosque.view.Ventana;
@@ -26,13 +28,13 @@ public class Controller {
 		BDAO = new BusDAO();
 		TDAO = new TrenDAO();
 	}
-	
+
 	public void agregarAdministrativo(String nombre, String tipoDoc, String numDoc, String facultad, short edad,
-			long telefono, String correo) {
-		Administrativo a = new Administrativo(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo);
+			long telefono, String correo, int anioExperiencia) {
+		Administrativo a = new Administrativo(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo, anioExperiencia);
 		ADAO.crear(a);
 	}
-	
+
 	public void agregarDocente(String nombre, String tipoDoc, String numDoc, String facultad, short edad, long telefono,
 			String correo) {
 		Docente d = new Docente(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo);
@@ -56,8 +58,8 @@ public class Controller {
 	}
 
 	public Estudiante agregarEstudiante(String nombre, String tipoDoc, String numDoc, String facultad, short edad,
-			long telefono, String correo) {
-		Estudiante e = new Estudiante(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo);
+			long telefono, String correo, String semestre) {
+		Estudiante e = new Estudiante(nombre, tipoDoc, numDoc, facultad, edad, telefono, correo,semestre);
 		EDAO.crear(e);
 		return e;
 	}
@@ -76,7 +78,6 @@ public class Controller {
 
 	public String mostrarReservasBus() {
 		return BDAO.mostrar();
-
 	}
 
 	public String mostrarReservasTren() {

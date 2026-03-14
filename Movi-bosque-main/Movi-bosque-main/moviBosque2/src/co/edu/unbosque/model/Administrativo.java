@@ -1,13 +1,29 @@
 package co.edu.unbosque.model;
 
 public class Administrativo extends Persona{
-
+	
+	private int aniosDeExperiencia;
+	
+	public int getAniosDeExperiencia() {
+		return aniosDeExperiencia;
+	}
+	public void setAniosDeExperiencia(int aniosDeExperiencia) {
+		this.aniosDeExperiencia = aniosDeExperiencia;
+	}
+	
 	public Administrativo() {
 		
 	}
+	
+	public Administrativo(int aniosDeExperiencia) {
+		super();
+		this.aniosDeExperiencia = aniosDeExperiencia;
+	}
+	
 	public Administrativo(String nombre, String tipoDocumento, String numeroDocumento, String facultad, short edad,
-			long numeroTelefonico, String correoInstitucional) {
+			long numeroTelefonico, String correoInstitucional, int aniosDeExperiencia) {
 		super(nombre, tipoDocumento, numeroDocumento, facultad, edad, numeroTelefonico, correoInstitucional);
+		this.aniosDeExperiencia = aniosDeExperiencia;
 	}
 	@Override
 	public String pagarViaje(String facultad,String semestre,int anosDeServicioUniversidad) {
@@ -26,5 +42,11 @@ public class Administrativo extends Persona{
 		}
 		return "El monto a pagar es: "+(montoAPagar-500*anosDeServicioUniversidad);
 	}
+	@Override
+	public String toString() {
+		return "Administrativo [aniosDeExperiencia=" + aniosDeExperiencia + "]";
+	}
+	
+	
 
 }
